@@ -1,0 +1,50 @@
+body {
+  margin: 0px;
+}
+
+html {
+  /* scroll-behavior: smooth; */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: darkgray;
+}
+
+.node-handle {
+  bottom: -10px;
+  border-width: 0.8px;
+  border-color: #14f088;
+  border-style: solid;
+  background-color: rgb(240, 240, 240);
+  box-shadow: 0.174px 0.8px 2px 0px rgba(0, 0, 0, 1);
+  width: 8px;
+  height: 8px;
+}
+
+.node-handle:hover {
+  width: 10px;
+  height: 10px;
+}
+
+.edge-class {
+  background: red;
+  color: Red;
+}
