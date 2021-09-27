@@ -146,7 +146,7 @@ export default function Drawer({ show }) {
                 value={configuration.sourceCount}
                 onChange={changeHandle}
               />
-              <button type="submit">Kaydet</button>
+            
             </form>
           </div>
         )}

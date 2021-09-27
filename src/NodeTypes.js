@@ -1,32 +1,10 @@
 export const INPUT = "Set Variables";
 export const NOTIFICATION = "Notification";
-export const PARSER = "Parser";
-export const COMBINE = "Combine";
-export const SWITCH = "Switch";
-export const DELAY = "Delay";
-export const SERIAL_PORT = "SerialPort";
-export const ETHERNET = "Ethernet";
-export const SPLIT = "Split";
-export const JOIN = "Join";
-export const BATCH = "Batch";
-export const SORT = "Sort";
-export const FILE_IN = "FileIn";
-export const FILE_OUT = "FileOut";
-export const DONUT = "Donut";
-export const LATEX = "Latex";
-export const TESTNODE = 'Test';
 export const SCRIPT = 'SCRIPT';
 export const RULESET = 'RULESET';
 export const RULE = 'RULE';
 export const CALL = 'CALL';
 export const SET = 'SET';
 export const IF = 'IF';
-export const AND = 'AND';
-export const OR = 'OR';
-export const NOT = 'NOT';
-export const EQUALSTO = 'EQUALSTO'
-export const NOTEQULASTO = 'NOTEQULASTO';
-export const LESSTHAN = 'LESSTHAN';
-export const GREATERTHAN = 'GREATERTHAN';
 
 

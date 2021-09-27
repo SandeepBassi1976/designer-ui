@@ -1,34 +1,22 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, {useRef, useEffect, useContext } from "react";
 import ReactFlow, {
   ReactFlowProvider,
   addEdge,
   updateEdge,
   removeElements,
-  Controls,
-  ControlButton,
-  Background,
-  MiniMap,
-  Handle,
-  useZoomPanHelper,
-  getIncomers,
-  getOutgoers,
   isEdge
 } from "react-flow-renderer";
+
 import CustomEdge from "./CustomEdge";
 import uuid from "react-uuid";
 import StoreContext from "./context/Store";
 import Sidebar from "./components/Sidebar";
 import Drawer from "./components/Drawer";
-import TopMenu from "./components/TopMenu";
 import "./nodes/dnd.css";
 import "./main.css";
-import initialElements from "./initial-elements";
 import customNodes from "./CustomNodes";
-import localForage from "localforage";
 import { NotificationContainer } from "react-notifications";
 import { loadFunctionsToNode } from "./globals/helpers/loadFunctionsToNode";
-import { getDataFromDb } from "./globals/db";
-import adjustScreen from "./globals/dom/adjustScreen";
 import { openNotification as notification } from "./globals/dom/notification";
 import { createGlobalStyle } from "styled-components";
 export const AppRoot = createGlobalStyle`
@@ -55,11 +43,12 @@ const DnDFlow = () => {
     flagColor
   } = useContext(StoreContext);
 
+
   const reactFlowWrapper = useRef(null);
 
   const onConnect = (params) => {
     if (params.source === params.target) {
-      notification("ERROR!", "Kendisine bağlanamaz", "error");
+      notification("ERROR!", "an error has occured", "error");
     } else {
       setElements((els) =>
         addEdge(
@@ -69,7 +58,7 @@ const DnDFlow = () => {
             sourceX: 10,
             sourceY: 10,
             style: { stroke: flagColor, strokeWidth: "2px" },
-            data: { source: "", target: "", payload: "Anaks" }
+            data: { source: "", target: "", payload: "payload data" }
           },
           els
         )
@@ -100,17 +89,6 @@ const DnDFlow = () => {
     setElements((els) => removeElements(elementsToRemove, els));
   const onLoad = (_reactFlowInstance) => {
     setReactFlowInstance(_reactFlowInstance);
-
-    // const data = getDataFromDb(nodeClass);
-    // data
-    //   .then((flow) => {
-    //     adjustScreen(flow, _reactFlowInstance);
-    //     setElements(flow.elements);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setElements(initialElements);
-    //   });
   };
 
   const onDragOver = (event) => {
@@ -159,7 +137,6 @@ const DnDFlow = () => {
   return (
     <div className="dndflow">
       <ReactFlowProvider>
-        <TopMenu />
         <Sidebar />
         <Drawer show={showDrawer}></Drawer>
         <div className="reactflow-wrapper" ref={reactFlowWrapper}>
@@ -167,7 +144,7 @@ const DnDFlow = () => {
             edgeTypes={edgeTypes}
             style={{
               background:
-                theme === "light" ? "rgb(215,215,215)" : "rgb(35,35,35)"
+                theme === "light" ? "#dde1e4" : "rgb(35,35,35)"
             }}
             elements={elements}
             onConnect={onConnect}
@@ -185,15 +162,7 @@ const DnDFlow = () => {
             onDrop={onDrop}
             onDragOver={onDragOver}
             onEdgeUpdate={onEdgeUpdate}
-            //onNodeDragStart={(e, node) => console.log(node)}
-            //onNodeDrag={(e, node) => console.log(node)}
-            //onNodeDragStop={(e, node) => console.log(node)}
-            //onNodeMouseEnter={(e, node) => console.log(node)} //hover
-            //onNodeMouseLeave={(e, node) => console.log(node)} //hover leave
-            onNodeContextMenu={onNodeContextMenu} //sağ tıklama
-            //onConnectEnd={(e) => console.log(e)}
-            //onMove={(flowTransform) => console.log(flowTransform)} //return x,y,zoom
-            //onSelectionChange={(els) => console.log(els)}
+            onNodeContextMenu={onNodeContextMenu} 
             deleteKeyCode={46}
             nodeTypes={customNodes}
             minZoom={0.1}
@@ -203,18 +172,12 @@ const DnDFlow = () => {
             zoomOnDoubleClick={false}
             connectionLineStyle={{ stroke: "#3498db", strokeWidth: 2 }}
           >
-            <Controls>
-              <ControlButton>SAFDS</ControlButton>
-            </Controls>
-            <Background
-              gap={55}
-              color={theme === "light" ? "#7f8c8d" : "rgb(170,170,170)"}
-              size={theme === "light" ? "2.5px" : "1px"}
-            />
-            <MiniMap nodeColor="gray" />
           </ReactFlow>
         </div>
         <NotificationContainer />
+        <p>
+        
+      </p>
       </ReactFlowProvider>
     </div>
   );
