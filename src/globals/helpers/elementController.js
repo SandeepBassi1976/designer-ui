@@ -1,4 +1,4 @@
-import { isEdge, isNode } from "react-flow-renderer";
+import { isEdge, isNode} from "react-flow-renderer";
 export const getNodesAndEdges = (elements) => {
   const edgeArray = [];
   const nodeArray = [];

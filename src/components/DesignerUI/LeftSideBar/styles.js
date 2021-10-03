@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import MainNode from "../MainNode";
+import MainNode from "../../MainNode";
 export const NodeWrapper = styled(MainNode)`
-  //background: #d9ee1d;
+  background: #0000cd99;
 `;
 
 export const InputLabel = styled.div`

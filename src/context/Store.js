@@ -8,7 +8,7 @@ export const StoreProvider = ({ children }) => {
   const [elements, setElements] = useState([]);
   const [clickedElement, setClickedElement] = useState({});
   const [theme, setTheme] = useState("light");
-  const [flagColor, setFlagColor] = useState("green");
+  const [flagColor, setFlagColor] = useState("grey");
   const value = {
     reactFlowInstance,
     setReactFlowInstance,

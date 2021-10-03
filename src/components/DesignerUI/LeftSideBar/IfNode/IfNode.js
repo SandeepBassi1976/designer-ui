@@ -1,10 +1,10 @@
-import { NodeWrapper, InputLabel } from "./styles";
+import { NodeWrapper, InputLabel } from "../styles";
 import { Handle } from "react-flow-renderer";
 
-const NotEqualsToNode = (self) => {
+const IfNode = (self) => {
   return (
     <NodeWrapper>
-      <InputLabel>!=</InputLabel>
+      <InputLabel>{self.data.label}</InputLabel>
       <Handle
         type="target"
         position="top"
@@ -23,4 +23,4 @@ const NotEqualsToNode = (self) => {
   );
 };
 
-export default NotEqualsToNode;
+export default IfNode;

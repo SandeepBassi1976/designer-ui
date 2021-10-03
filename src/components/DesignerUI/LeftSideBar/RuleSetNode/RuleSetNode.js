@@ -1,7 +1,7 @@
-import { NodeWrapper, InputLabel } from "./styles";
+import { NodeWrapper, InputLabel } from "../styles";
 import { Handle } from "react-flow-renderer";
 
-const ScriptNode = (self) => {
+const RuleSetNode = (self) => {
   return (
     <NodeWrapper>
       <InputLabel>{self.data.label}</InputLabel>
@@ -23,4 +23,4 @@ const ScriptNode = (self) => {
   );
 };
 
-export default ScriptNode;
+export default RuleSetNode;

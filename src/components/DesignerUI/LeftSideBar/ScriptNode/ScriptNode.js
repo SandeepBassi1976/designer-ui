@@ -1,7 +1,7 @@
-import { NodeWrapper, InputLabel } from "./styles";
+import { NodeWrapper, InputLabel } from "../styles";
 import { Handle } from "react-flow-renderer";
 
-const OrNode = (self) => {
+const ScriptNode = (self) => {
   return (
     <NodeWrapper>
       <InputLabel>{self.data.label}</InputLabel>
@@ -23,4 +23,4 @@ const OrNode = (self) => {
   );
 };
 
-export default OrNode;
+export default ScriptNode;

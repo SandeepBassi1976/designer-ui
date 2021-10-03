@@ -1,4 +1,4 @@
-import { NodeWrapper, InputLabel } from "./styles";
+import { NodeWrapper, InputLabel } from "../styles";
 import { Handle } from "react-flow-renderer";
 
 const RuleNode = (self) => {

@@ -1,16 +1,12 @@
-import InputNode from "./nodes/common/InputNode";
-import NotificationNode from "./nodes/common/NotificationNode";
-import RuleSetNode from "./components/nodes/RuleSetNode";
-import ScriptNode from "./components/nodes/ScriptNode";
-import RuleNode from "./components/nodes/RuleNode";
-import CallNode from "./components/nodes/CallNode";
-import SetNode from "./components/nodes/SetNode";
-import IfNode from "./components/nodes/IfNode";
+import RuleSetNode from "./components/DesignerUI/LeftSideBar/RuleSetNode/RuleSetNode";
+import ScriptNode from "./components/DesignerUI/LeftSideBar/ScriptNode/ScriptNode";
+import RuleNode from "./components/DesignerUI/LeftSideBar/RuleNode/RuleNode";
+import CallNode from "./components/DesignerUI/LeftSideBar/CallNode/CallNode";
+import SetNode from "./components/DesignerUI/LeftSideBar/SetNode/SetNode";
+import IfNode from "./components/DesignerUI/LeftSideBar/IfNode/IfNode";
 
 
 const customNodes = {
-  "Set Variables": InputNode,
-  Notification: NotificationNode,
   RULESET:RuleSetNode,
   SCRIPT:ScriptNode,
   RULE:RuleNode,

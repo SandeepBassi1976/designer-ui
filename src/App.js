@@ -1,12 +1,11 @@
-import React, {useRef, useEffect, useContext } from "react";
+import React, {useRef, useEffect, useContext, useState, Fragment, useCallback} from "react";
 import ReactFlow, {
   ReactFlowProvider,
   addEdge,
   updateEdge,
   removeElements,
-  isEdge
+  isEdge,
 } from "react-flow-renderer";
-
 import CustomEdge from "./CustomEdge";
 import uuid from "react-uuid";
 import StoreContext from "./context/Store";
@@ -17,8 +16,11 @@ import "./main.css";
 import customNodes from "./CustomNodes";
 import { NotificationContainer } from "react-notifications";
 import { loadFunctionsToNode } from "./globals/helpers/loadFunctionsToNode";
-import { openNotification as notification } from "./globals/dom/notification";
 import { createGlobalStyle } from "styled-components";
+import  "./components/DesignerUI/RightSideBar/RightBar.css";
+
+
+
 export const AppRoot = createGlobalStyle`
   body {
     @import url('../../font.css');
@@ -28,6 +30,8 @@ export const AppRoot = createGlobalStyle`
     cursor: default;
   }
 `;
+
+
 const DnDFlow = () => {
   const {
     reactFlowInstance,
@@ -41,14 +45,23 @@ const DnDFlow = () => {
     nodeClass,
     theme,
     flagColor
-  } = useContext(StoreContext);
+  } = useContext(StoreContext); 
 
-
+  const [data, setData] = useState([]);
+  const [labelName, setLabelName] = useState([]);
+  const [showJson, setShowJson] = useState(false);
+  const [nodeName, setNodeName] = useState([]);
+  //const [sourceNode, setSourceNode] = useState();
+  const [test, setTest] = useState([]);
   const reactFlowWrapper = useRef(null);
 
+
   const onConnect = (params) => {
+  
+   console.log(nodeName);
+   
     if (params.source === params.target) {
-      notification("ERROR!", "an error has occured", "error");
+      alert("Error");
     } else {
       setElements((els) =>
         addEdge(
@@ -58,15 +71,21 @@ const DnDFlow = () => {
             sourceX: 10,
             sourceY: 10,
             style: { stroke: flagColor, strokeWidth: "2px" },
-            data: { source: "", target: "", payload: "payload data" }
+            data: {
+              source: params.source,
+              target: params.target,
+              payload: nodeName,
+            },
           },
           els
         )
       );
     }
   };
+
   useEffect(() => {
     const newElements = elements.map((els) => {
+      console.log(els);
       if (isEdge(els)) {
         return {
           ...els,
@@ -81,8 +100,9 @@ const DnDFlow = () => {
     });
     setElements(newElements);
   }, [flagColor]);
-
+  
   const onEdgeUpdate = (oldEdge, newConnection) => {
+    console.log(oldEdge);
     setElements((els) => updateEdge(oldEdge, newConnection, els));
   };
   const onElementsRemove = (elementsToRemove) =>
@@ -96,17 +116,40 @@ const DnDFlow = () => {
     event.dataTransfer.dropEffect = "move";
   };
 
+
+  /* const updateNode = (params) => {
+    setLabelName(labelName => [...labelName, params]);
+  
+  }  */
+
   const onDrop = (event) => {
     event.preventDefault();
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
     const type = event.dataTransfer.getData("application/reactflow");
+    setData(data => [...data, type]);
+    setNodeName(type);
+    setShowJson(true);
+    //updateNode(type);
+    //console.log(labelName);
     const position = reactFlowInstance.project({
       x: event.clientX - reactFlowBounds.left,
       y: event.clientY - reactFlowBounds.top
     });
 
     const nodeFunction = loadFunctionsToNode(type, nodeClass);
-    const newNode = {
+
+  /*   let name = 'CALL';
+    let count = 0;
+    data.map(d => {
+      if(d === name){
+        count = count+1;
+      }
+    })
+    if (name === type && count >=2) {
+      alert("CALL can not call Itself");
+    }  */
+   
+     const newNode = {
       id: uuid(),
       type,
       position,
@@ -118,6 +161,7 @@ const DnDFlow = () => {
         sourceCount: 1
       }
     };
+  
     setElements([...elements, newNode]);
   };
   const onElementClick = (event, element) => {
@@ -133,8 +177,11 @@ const DnDFlow = () => {
   const edgeTypes = {
     custom: CustomEdge
   };
+   
 
   return (
+
+    <Fragment>
     <div className="dndflow">
       <ReactFlowProvider>
         <Sidebar />
@@ -170,16 +217,33 @@ const DnDFlow = () => {
             multiSelectionKeyCode={17}
             zoomActivationKeyCode={90}
             zoomOnDoubleClick={false}
-            connectionLineStyle={{ stroke: "#3498db", strokeWidth: 2 }}
+            connectionLineStyle={{ stroke: "#585858", strokeWidth: 2 }}
           >
           </ReactFlow>
         </div>
         <NotificationContainer />
         <p>
-        
       </p>
       </ReactFlowProvider>
     </div>
+    <div className="rightFlow">
+        <aside>
+          <b>
+          {nodeName}
+          </b>
+
+          <p>
+            {
+              showJson && (JSON.stringify(data))
+            }
+          </p>
+
+
+        </aside>
+      </div>
+   
+    </Fragment>
+
   );
 };
 export default DnDFlow;

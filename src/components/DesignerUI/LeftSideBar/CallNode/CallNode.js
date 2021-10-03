@@ -1,10 +1,10 @@
-import { NodeWrapper, InputLabel } from "./styles";
+import { NodeWrapper, InputLabel } from "../styles";
 import { Handle } from "react-flow-renderer";
 
-const LessThanNode = (self) => {
+const CallNode = (self) => {
   return (
     <NodeWrapper>
-      <InputLabel> &lt; </InputLabel>
+      <InputLabel>{self.data.label}</InputLabel>
       <Handle
         type="target"
         position="top"
@@ -23,4 +23,4 @@ const LessThanNode = (self) => {
   );
 };
 
-export default LessThanNode;
+export default CallNode;

@@ -1,11 +1,10 @@
+import { NodeWrapper, InputLabel } from "../styles";
 import { Handle } from "react-flow-renderer";
-import { NodeWrapper, InputLabel } from "./styles";
-const DonutNode = (self) => {
+
+const SetNode = (self) => {
   return (
     <NodeWrapper>
-      <InputLabel>
-        <p>{self.data.label}</p>
-      </InputLabel>
+      <InputLabel>{self.data.label}</InputLabel>
       <Handle
         type="target"
         position="top"
@@ -24,4 +23,4 @@ const DonutNode = (self) => {
   );
 };
 
-export default DonutNode;
+export default SetNode;
