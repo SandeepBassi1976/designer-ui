@@ -9,6 +9,7 @@ export const StoreProvider = ({ children }) => {
   const [clickedElement, setClickedElement] = useState({});
   const [theme, setTheme] = useState("light");
   const [flagColor, setFlagColor] = useState("grey");
+  const [payLoad, setPayLoad] = useState([]);
   const value = {
     reactFlowInstance,
     setReactFlowInstance,
@@ -22,11 +23,13 @@ export const StoreProvider = ({ children }) => {
     theme,
     setTheme,
     flagColor,
-    setFlagColor
+    setFlagColor,
+    payLoad,
+    setPayLoad
   };
   useEffect(() => {
-    nodeClass.applyElements(elements, setElements);
-  }, [elements]);
+    nodeClass.applyElements(elements,setElements,payLoad,setPayLoad);
+  }, [elements,payLoad]);
   return (
     <div>
       <StoreContext.Provider value={value}>{children}</StoreContext.Provider>

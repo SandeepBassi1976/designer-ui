@@ -44,7 +44,9 @@ const DnDFlow = () => {
     setClickedElement,
     nodeClass,
     theme,
-    flagColor
+    flagColor,
+    payLoad,
+    setPayLoad
   } = useContext(StoreContext); 
 
   const [data, setData] = useState([]);
@@ -56,9 +58,22 @@ const DnDFlow = () => {
   const reactFlowWrapper = useRef(null);
 
 
+
+/* 
+  const updateNode = (params) => {
+   setTimeout(() => {
+     setTest(test => [...test, params]);
+   },5000)
+  } */
+
+
   const onConnect = (params) => {
-  
-   console.log(nodeName);
+
+    //updateNode(nodeName);
+    //console.log(test);
+
+    setPayLoad(payLoad => [...payLoad, nodeName]);
+    console.log(payLoad);
    
     if (params.source === params.target) {
       alert("Error");
@@ -85,7 +100,6 @@ const DnDFlow = () => {
 
   useEffect(() => {
     const newElements = elements.map((els) => {
-      console.log(els);
       if (isEdge(els)) {
         return {
           ...els,
@@ -100,13 +114,17 @@ const DnDFlow = () => {
     });
     setElements(newElements);
   }, [flagColor]);
+
   
   const onEdgeUpdate = (oldEdge, newConnection) => {
-    console.log(oldEdge);
     setElements((els) => updateEdge(oldEdge, newConnection, els));
   };
-  const onElementsRemove = (elementsToRemove) =>
+  
+  const onElementsRemove = (elementsToRemove) =>  {
+    console.log(elementsToRemove);
     setElements((els) => removeElements(elementsToRemove, els));
+  }
+
   const onLoad = (_reactFlowInstance) => {
     setReactFlowInstance(_reactFlowInstance);
   };
@@ -172,7 +190,6 @@ const DnDFlow = () => {
   };
   const onNodeContextMenu = (e, node) => {
     e.preventDefault();
-    console.log(node);
   };
   const edgeTypes = {
     custom: CustomEdge

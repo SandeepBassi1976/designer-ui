@@ -14,18 +14,22 @@ export default class Node {
   elements = [];
   nodes = [];
   edges = [];
+  payLoad = [];
   constructor(data) {
     console.log(
       `%c ${data}`,
       "background: green; color: white; display: block;"
     );
   }
-  applyElements = (elements, setElements) => {
+  applyElements = (elements, setElements, payLoad, setPayLoad) => {
     const { nodes, edges } = getNodesAndEdges(elements);
     this.elements = elements;
     this.nodes = nodes;
     this.edges = edges;
     this.setElements = setElements;
+    this.payLoad = payLoad;
+    this.setPayLoad = setPayLoad;
+
   };
 
   doInput = (data, self, outgoers) => {
