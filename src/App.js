@@ -1,4 +1,10 @@
-import React, {useRef, useEffect, useContext, useState, Fragment, useCallback} from "react";
+import React, {
+  useRef,
+  useEffect,
+  useContext,
+  useState,
+  Fragment,
+} from "react";
 import ReactFlow, {
   ReactFlowProvider,
   addEdge,
@@ -17,8 +23,7 @@ import customNodes from "./CustomNodes";
 import { NotificationContainer } from "react-notifications";
 import { loadFunctionsToNode } from "./globals/helpers/loadFunctionsToNode";
 import { createGlobalStyle } from "styled-components";
-import  "./components/DesignerUI/RightSideBar/RightBar.css";
-
+import "./components/DesignerUI/RightSideBar/RightBar.css";
 
 
 export const AppRoot = createGlobalStyle`
@@ -30,7 +35,6 @@ export const AppRoot = createGlobalStyle`
     cursor: default;
   }
 `;
-
 
 const DnDFlow = () => {
   const {
@@ -45,36 +49,38 @@ const DnDFlow = () => {
     nodeClass,
     theme,
     flagColor,
-    payLoad,
-    setPayLoad
-  } = useContext(StoreContext); 
+  } = useContext(StoreContext);
 
   const [data, setData] = useState([]);
-  const [labelName, setLabelName] = useState([]);
   const [showJson, setShowJson] = useState(false);
   const [nodeName, setNodeName] = useState([]);
-  //const [sourceNode, setSourceNode] = useState();
   const [test, setTest] = useState([]);
   const reactFlowWrapper = useRef(null);
 
-
+  /*  useEffect(() => {
+    console.log('test node')
+      updateNode();
+  }, [])
+ */
 
 /* 
-  const updateNode = (params) => {
-   setTimeout(() => {
-     setTest(test => [...test, params]);
-   },5000)
-  } */
+useEffect(() => {
+
+  console.log('Hello from AppBar');
+
+}) */
 
 
   const onConnect = (params) => {
-
-    //updateNode(nodeName);
-    //console.log(test);
-
-    setPayLoad(payLoad => [...payLoad, nodeName]);
-    console.log(payLoad);
    
+    /*   data.map(d => {
+      if(elements.source === d){
+        let count = count+1;
+      }
+      if(elements.target === params.source){
+      }
+      
+    })  */
     if (params.source === params.target) {
       alert("Error");
     } else {
@@ -96,6 +102,7 @@ const DnDFlow = () => {
         )
       );
     }
+  
   };
 
   useEffect(() => {
@@ -105,8 +112,8 @@ const DnDFlow = () => {
           ...els,
           style: {
             ...els.style,
-            stroke: flagColor
-          }
+            stroke: flagColor,
+          },
         };
       } else {
         return els;
@@ -115,15 +122,22 @@ const DnDFlow = () => {
     setElements(newElements);
   }, [flagColor]);
 
-  
+
+  useEffect(() => {
+
+    console.log(elements);
+
+
+  }, [elements])
+
   const onEdgeUpdate = (oldEdge, newConnection) => {
     setElements((els) => updateEdge(oldEdge, newConnection, els));
   };
-  
-  const onElementsRemove = (elementsToRemove) =>  {
+
+  const onElementsRemove = (elementsToRemove) => {
     console.log(elementsToRemove);
     setElements((els) => removeElements(elementsToRemove, els));
-  }
+  };
 
   const onLoad = (_reactFlowInstance) => {
     setReactFlowInstance(_reactFlowInstance);
@@ -134,29 +148,21 @@ const DnDFlow = () => {
     event.dataTransfer.dropEffect = "move";
   };
 
-
-  /* const updateNode = (params) => {
-    setLabelName(labelName => [...labelName, params]);
-  
-  }  */
-
   const onDrop = (event) => {
     event.preventDefault();
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
     const type = event.dataTransfer.getData("application/reactflow");
-    setData(data => [...data, type]);
+    setData((data) => [...data, type]);
     setNodeName(type);
     setShowJson(true);
-    //updateNode(type);
-    //console.log(labelName);
     const position = reactFlowInstance.project({
       x: event.clientX - reactFlowBounds.left,
-      y: event.clientY - reactFlowBounds.top
+      y: event.clientY - reactFlowBounds.top,
     });
 
     const nodeFunction = loadFunctionsToNode(type, nodeClass);
 
-  /*   let name = 'CALL';
+    /*   let name = 'CALL';
     let count = 0;
     data.map(d => {
       if(d === name){
@@ -166,8 +172,8 @@ const DnDFlow = () => {
     if (name === type && count >=2) {
       alert("CALL can not call Itself");
     }  */
-   
-     const newNode = {
+
+    const newNode = {
       id: uuid(),
       type,
       position,
@@ -176,10 +182,10 @@ const DnDFlow = () => {
         onChange: nodeFunction,
         sample: "Sample",
         targetCount: 1,
-        sourceCount: 1
-      }
+        sourceCount: 1,
+      },
     };
-  
+
     setElements([...elements, newNode]);
   };
   const onElementClick = (event, element) => {
@@ -192,75 +198,61 @@ const DnDFlow = () => {
     e.preventDefault();
   };
   const edgeTypes = {
-    custom: CustomEdge
+    custom: CustomEdge,
   };
-   
+
 
   return (
-
     <Fragment>
-    <div className="dndflow">
-      <ReactFlowProvider>
-        <Sidebar />
-        <Drawer show={showDrawer}></Drawer>
-        <div className="reactflow-wrapper" ref={reactFlowWrapper}>
-          <ReactFlow
-            edgeTypes={edgeTypes}
-            style={{
-              background:
-                theme === "light" ? "#dde1e4" : "rgb(35,35,35)"
-            }}
-            elements={elements}
-            onConnect={onConnect}
-            onElementsRemove={onElementsRemove}
-            onElementClick={onElementClick}
-            onDoubleClick={onElementDoubleClick}
-            onPaneContextMenu={(e) => e.preventDefault()}
-            onPaneClick={() =>
-              setShowDrawer({
-                enable: true,
-                node: {}
-              })
-            }
-            onLoad={onLoad}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            onEdgeUpdate={onEdgeUpdate}
-            onNodeContextMenu={onNodeContextMenu} 
-            deleteKeyCode={46}
-            nodeTypes={customNodes}
-            minZoom={0.1}
-            maxZoom={4}
-            multiSelectionKeyCode={17}
-            zoomActivationKeyCode={90}
-            zoomOnDoubleClick={false}
-            connectionLineStyle={{ stroke: "#585858", strokeWidth: 2 }}
-          >
-          </ReactFlow>
-        </div>
-        <NotificationContainer />
-        <p>
-      </p>
-      </ReactFlowProvider>
-    </div>
-    <div className="rightFlow">
+      <div className="dndflow">
+        <ReactFlowProvider>
+          <Sidebar/>
+          <Drawer show={showDrawer}></Drawer>
+          <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+            <ReactFlow
+              edgeTypes={edgeTypes}
+              style={{
+                background: theme === "light" ? "#dde1e4" : "rgb(35,35,35)",
+              }}
+              elements={elements}
+              onConnect={onConnect}
+              onElementsRemove={onElementsRemove}
+              onElementClick={onElementClick}
+              onDoubleClick={onElementDoubleClick}
+              onPaneContextMenu={(e) => e.preventDefault()}
+              onPaneClick={() =>
+                setShowDrawer({
+                  enable: true,
+                  node: {},
+                })
+              }
+              onLoad={onLoad}
+              onDrop={onDrop}
+              onDragOver={onDragOver}
+              onEdgeUpdate={onEdgeUpdate}
+              onNodeContextMenu={onNodeContextMenu}
+              deleteKeyCode={46}
+              nodeTypes={customNodes}
+              minZoom={0.1}
+              maxZoom={4}
+              multiSelectionKeyCode={17}
+              zoomActivationKeyCode={90}
+              zoomOnDoubleClick={false}
+              connectionLineStyle={{ stroke: "#585858", strokeWidth: 2 }}
+            ></ReactFlow>
+          </div>
+          <NotificationContainer />
+          <p></p>
+        </ReactFlowProvider>
+      </div>
+      <div className="rightFlow">
         <aside>
-          <b>
-          {nodeName}
-          </b>
+          <b>{nodeName}</b>
 
-          <p>
-            {
-              showJson && (JSON.stringify(data))
-            }
-          </p>
-
-
+          <p>{showJson && JSON.stringify(data)}</p>
         </aside>
       </div>
-   
     </Fragment>
-
   );
 };
 export default DnDFlow;

@@ -1,4 +1,4 @@
-import React, {useState, useContext,Fragment} from "react";
+import React, {useContext,Fragment, useEffect} from "react";
 import StoreContext from "../context/Store";
 import Collapsible from "react-collapsible";
 import localforage from "localforage";
@@ -6,8 +6,7 @@ import * as types from "../NodeTypes";
 
 
 export default () => {
-  const { elements } = useContext(StoreContext);
-  //const [viewJson, setViewJson] = useState(false);
+  const { elements, } = useContext(StoreContext);
   const onDragStart = (event, nodeType) => {
     event.dataTransfer.setData("application/reactflow", nodeType);
     event.dataTransfer.effectAllowed = "move";
@@ -16,6 +15,9 @@ export default () => {
     name: "LocalForage DB",
     storeName: "Node-Flow"
   });
+
+  //console.log('Hello from SideBar');
+
 
   return (
     <Fragment>
