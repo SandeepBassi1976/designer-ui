@@ -36,9 +36,9 @@ CLOSE_SQUARE : ']' ;
 
 ALPHA_NUMERIC : [a-zA-Z_0-9]+
 
-INT : '-'?[1-9][0-9]*
+INT : '-'?[0-9]+
 
-DECIMAL : '-'?[1-9][0-9]*('.'[0-9]+)? ;
+DECIMAL : '-'?[0-9][0-9]*('.'[0-9]+)? ;
 
 BOOL : TRUE | FALSE ;
 
@@ -67,9 +67,9 @@ script : action* EOF ;
 action : rules | if | set ;
 
 rules : RULES rule* [default] ;
-rule : condition action* ;
+rule : condition action+ ;
 
-if : IF condition action* ;
+if : IF condition action+ ;
 
 set : SET id [ variable | id ] ;
 
@@ -87,7 +87,7 @@ comparison_expr : basic_comparison_expr | numeric_comparison_expr ;
 
 basic_comparison_expr : basic_comparison_operand basic_comparison_operation basic_comparison_operand ;
 basic_comparison_operation : EQ | NE ;
-basic_comparison_operand : id | BOOL : STRING ;
+basic_comparison_operand : id | BOOL | STRING ;
 
 numeric_comparison_expr : numeric_comparison_operand numeric_comp_operator numeric_comparison_operand ;
 numeric_comp_operator : GT
@@ -97,4 +97,4 @@ numeric_comp_operator : GT
               | EQ
               | NE
               ;
-numeric_comparison_operand : id | INT : DECIMAL ;
+numeric_comparison_operand : id | INT | DECIMAL ;
