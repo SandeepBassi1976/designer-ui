@@ -25,6 +25,8 @@ import { loadFunctionsToNode } from "./globals/helpers/loadFunctionsToNode";
 import { createGlobalStyle } from "styled-components";
 import "./components/DesignerUI/RightSideBar/RightBar.css";
 
+import { jsonData } from "./data";
+
 
 export const AppRoot = createGlobalStyle`
   body {
@@ -124,6 +126,8 @@ useEffect(() => {
 
 
   useEffect(() => {
+
+    //elements.filter((ele, index) => indexOf(ele == index))
 
     console.log(elements);
 

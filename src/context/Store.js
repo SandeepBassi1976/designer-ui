@@ -10,6 +10,9 @@ export const StoreProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
   const [flagColor, setFlagColor] = useState("grey");
   const [payLoad, setPayLoad] = useState([]);
+
+
+
   const value = {
     reactFlowInstance,
     setReactFlowInstance,
@@ -27,6 +30,7 @@ export const StoreProvider = ({ children }) => {
     payLoad,
     setPayLoad
   };
+
   useEffect(() => {
     nodeClass.applyElements(elements,setElements,payLoad,setPayLoad);
   }, [elements,payLoad]);
