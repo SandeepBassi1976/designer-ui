@@ -2,9 +2,7 @@ body {
   margin: 0px;
 }
 
-html {
-  /* scroll-behavior: smooth; */
-}
+
 
 /* width */
 ::-webkit-scrollbar {

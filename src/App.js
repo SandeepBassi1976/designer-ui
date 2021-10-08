@@ -25,7 +25,7 @@ import { loadFunctionsToNode } from "./globals/helpers/loadFunctionsToNode";
 import { createGlobalStyle } from "styled-components";
 import "./components/DesignerUI/RightSideBar/RightBar.css";
 
-import { jsonData } from "./data";
+import {jsonData} from "./data";
 
 
 export const AppRoot = createGlobalStyle`
@@ -73,39 +73,69 @@ useEffect(() => {
 }) */
 
 
+/* const getUnique = (arr, comp) => {
+  const unique = arr.map(e => e[comp]).map((e,i,final) => final.indexOf(e) === i & i)
+
+  .filter(e => arr[e])
+  .map(e => arr[e]);
+
+  return unique;
+
+}
+
+
+const nodes = require("./data.json");
+const uniqueData = getUnique(nodes.data, "data"); */
+
+
   const onConnect = (params) => {
-   
-    /*   data.map(d => {
-      if(elements.source === d){
-        let count = count+1;
+
+    setTest(test => [...test, params.target])
+
+   /*  console.log(test);
+    console.log(params.target); */
+
+    test.map(t => {
+      if(t === params.target){
+        alert('node has already a source');
+
+        //onElementsRemove(params.source) 
+        //setElements((els) => removeElements(params, els));
       }
-      if(elements.target === params.source){
+      else {
+          setElements((els) =>
+          addEdge(
+            {
+              ...params,
+              animated: true,
+              sourceX: 10,
+              sourceY: 10,
+              style: { stroke: flagColor, strokeWidth: "2px" },
+              data: {
+                source: params.source,
+                target: params.target,
+                payload: nodeName,
+              },
+            },
+            els
+          )
+        );
       }
-      
-    })  */
+
+      console.log(elements)
+    })
+
+/* 
     if (params.source === params.target) {
       alert("Error");
-    } else {
-      setElements((els) =>
-        addEdge(
-          {
-            ...params,
-            animated: true,
-            sourceX: 10,
-            sourceY: 10,
-            style: { stroke: flagColor, strokeWidth: "2px" },
-            data: {
-              source: params.source,
-              target: params.target,
-              payload: nodeName,
-            },
-          },
-          els
-        )
-      );
-    }
+    } */
+
+   /*  const values = Object.values(elements);
+
+    values.forEach((e, i, final) => console.log(e)); */
   
   };
+
 
   useEffect(() => {
     const newElements = elements.map((els) => {
@@ -125,14 +155,12 @@ useEffect(() => {
   }, [flagColor]);
 
 
-  useEffect(() => {
+ /*  useEffect(() => {
 
-    //elements.filter((ele, index) => indexOf(ele == index))
-
-    console.log(elements);
+   // console.log(elements);
 
 
-  }, [elements])
+  }, [elements]) */
 
   const onEdgeUpdate = (oldEdge, newConnection) => {
     setElements((els) => updateEdge(oldEdge, newConnection, els));
