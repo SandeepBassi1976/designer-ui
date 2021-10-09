@@ -2,7 +2,7 @@ import localforage from "localforage";
 import { loadFunctionsToNode } from "../helpers/loadFunctionsToNode";
 export const getDataFromDb = async (nodeClass) => {
   return await localforage
-    .getItem("flow")
+    .getItem("rules")
     .then((storedFlow) => {
       if (storedFlow) {
         const flow = JSON.parse(storedFlow);
@@ -33,7 +33,7 @@ export const saveToDb = async (reactFlowInstance) => {
   if (reactFlowInstance) {
     const flow = reactFlowInstance.toObject();
     return await localforage
-      .setItem("flow", JSON.stringify(flow))
+      .setItem("rules", JSON.stringify(flow))
       .then((res) => {
         alert("Save successful");
       })

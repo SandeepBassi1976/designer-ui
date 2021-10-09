@@ -1,35 +1,44 @@
-import React, {useContext,Fragment, useEffect} from "react";
+import React, {useContext,Fragment, useCallback} from "react";
 import StoreContext from "../context/Store";
 import Collapsible from "react-collapsible";
 import localforage from "localforage";
 import * as types from "../NodeTypes";
 
+import {saveToDb } from "../globals/db";
+
 
 export default () => {
-  const { elements, } = useContext(StoreContext);
+  const { elements,reactFlowInstance, } = useContext(StoreContext);
   const onDragStart = (event, nodeType) => {
     event.dataTransfer.setData("application/reactflow", nodeType);
     event.dataTransfer.effectAllowed = "move";
   };
   localforage.config({
-    name: "LocalForage DB",
+    name: "DesignerUI Demo",
     storeName: "Node-Flow"
   });
 
-  //console.log('Hello from SideBar');
-
+  const saveFlow = useCallback(() => {
+    saveToDb(reactFlowInstance);
+  }, [reactFlowInstance]);
 
   return (
     <Fragment>
     <aside>
       <button
-        style={{ width: "100%", background:'#d7d9e4' }}
+        style={{ width: "50%", background:'#d7d9e4',  borderRadius:'4px'}}
         onClick={() => {
           console.log(JSON.stringify(elements))}}
       >
-        Generate JSON
+       Json
       </button>
-      <br />
+      
+      <button
+        style={{ width: "50%", background:'#d7d9e4', borderRadius:'4px'}}
+        onClick= {saveFlow}
+      >
+        Save
+      </button> 
       <br />
 
 
@@ -90,13 +99,6 @@ export default () => {
         </div>
         </Collapsible>
     </aside>
-   {/*  <p>
-        {
-          viewJson && ( JSON.stringify(elements)  )
-
-        }  
-     
-    </p> */}
 </Fragment>
   );
 };

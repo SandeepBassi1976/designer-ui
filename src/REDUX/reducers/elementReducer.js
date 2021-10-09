@@ -33,7 +33,7 @@ const initialElements = [
       sourceX: 10,
       sourceY: 10,
       style: { stroke: "green", strokeWidth: "2px" },
-      data: { source: "", target: "", payload: "Anaks" },
+      data: { source: "", target: "", payload: "payload" },
       id:
         "reactflow__edge-228d31c-3440-e33a-1ff2-167aa5ce84asource1-bfbe564-3e50-22fe-51c-5b4641a007target1"
     }

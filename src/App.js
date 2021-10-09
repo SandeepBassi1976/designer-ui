@@ -24,8 +24,9 @@ import { NotificationContainer } from "react-notifications";
 import { loadFunctionsToNode } from "./globals/helpers/loadFunctionsToNode";
 import { createGlobalStyle } from "styled-components";
 import "./components/DesignerUI/RightSideBar/RightBar.css";
-
-import {jsonData} from "./data";
+import adjustScreen from "./globals/dom/adjustScreen";
+import { getDataFromDb } from "./globals/db";
+import initialElements from "./initial-elements";
 
 
 export const AppRoot = createGlobalStyle`
@@ -56,86 +57,34 @@ const DnDFlow = () => {
   const [data, setData] = useState([]);
   const [showJson, setShowJson] = useState(false);
   const [nodeName, setNodeName] = useState([]);
-  const [test, setTest] = useState([]);
   const reactFlowWrapper = useRef(null);
 
-  /*  useEffect(() => {
-    console.log('test node')
-      updateNode();
-  }, [])
- */
-
-/* 
-useEffect(() => {
-
-  console.log('Hello from AppBar');
-
-}) */
-
-
-/* const getUnique = (arr, comp) => {
-  const unique = arr.map(e => e[comp]).map((e,i,final) => final.indexOf(e) === i & i)
-
-  .filter(e => arr[e])
-  .map(e => arr[e]);
-
-  return unique;
-
-}
-
-
-const nodes = require("./data.json");
-const uniqueData = getUnique(nodes.data, "data"); */
 
 
   const onConnect = (params) => {
 
-    setTest(test => [...test, params.target])
-
-   /*  console.log(test);
-    console.log(params.target); */
-
-    test.map(t => {
-      if(t === params.target){
-        alert('node has already a source');
-
-        //onElementsRemove(params.source) 
-        //setElements((els) => removeElements(params, els));
-      }
-      else {
-          setElements((els) =>
-          addEdge(
-            {
-              ...params,
-              animated: true,
-              sourceX: 10,
-              sourceY: 10,
-              style: { stroke: flagColor, strokeWidth: "2px" },
-              data: {
-                source: params.source,
-                target: params.target,
-                payload: nodeName,
-              },
-            },
-            els
-          )
-        );
-      }
-
-      console.log(elements)
-    })
-
-/* 
     if (params.source === params.target) {
-      alert("Error");
-    } */
-
-   /*  const values = Object.values(elements);
-
-    values.forEach((e, i, final) => console.log(e)); */
-  
+   alert('an error has occured')
+    } else {
+      setElements((els) =>
+        addEdge(
+          {
+            ...params,
+            animated: true,
+            sourceX: 10,
+            sourceY: 10,
+            style: { stroke: flagColor, strokeWidth: "2px" },
+            data: { 
+              source: params.source,
+              target: params.target,
+              payload: nodeName, 
+              }
+          },
+          els
+        )
+      );
+    }
   };
-
 
   useEffect(() => {
     const newElements = elements.map((els) => {
@@ -155,13 +104,6 @@ const uniqueData = getUnique(nodes.data, "data"); */
   }, [flagColor]);
 
 
- /*  useEffect(() => {
-
-   // console.log(elements);
-
-
-  }, [elements]) */
-
   const onEdgeUpdate = (oldEdge, newConnection) => {
     setElements((els) => updateEdge(oldEdge, newConnection, els));
   };
@@ -173,6 +115,16 @@ const uniqueData = getUnique(nodes.data, "data"); */
 
   const onLoad = (_reactFlowInstance) => {
     setReactFlowInstance(_reactFlowInstance);
+
+    const data = getDataFromDb(nodeClass);
+    data.then((flow) => {
+        adjustScreen(flow, _reactFlowInstance);
+        setElements(flow.elements);
+      })
+      .catch((err) => {
+        console.log(err);
+        setElements(initialElements);
+      });
   };
 
   const onDragOver = (event) => {
@@ -193,17 +145,6 @@ const uniqueData = getUnique(nodes.data, "data"); */
     });
 
     const nodeFunction = loadFunctionsToNode(type, nodeClass);
-
-    /*   let name = 'CALL';
-    let count = 0;
-    data.map(d => {
-      if(d === name){
-        count = count+1;
-      }
-    })
-    if (name === type && count >=2) {
-      alert("CALL can not call Itself");
-    }  */
 
     const newNode = {
       id: uuid(),
@@ -233,12 +174,11 @@ const uniqueData = getUnique(nodes.data, "data"); */
     custom: CustomEdge,
   };
 
-
   return (
     <Fragment>
       <div className="dndflow">
         <ReactFlowProvider>
-          <Sidebar/>
+          <Sidebar />
           <Drawer show={showDrawer}></Drawer>
           <div className="reactflow-wrapper" ref={reactFlowWrapper}>
             <ReactFlow
