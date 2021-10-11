@@ -1,13 +1,11 @@
 import {
   getOutgoers,
-  getIncomers,
   getConnectedEdges,
   isEdge
 } from "react-flow-renderer";
 
 import {
   getNodesAndEdges,
-  findElementById
 } from "../helpers/elementController";
 import { openNotification as notification } from "../dom/notification";
 export default class Node {
@@ -33,38 +31,35 @@ export default class Node {
   };
 
   doInput = (data, self, outgoers) => {
-    //console.log("inject outgoers", outgoers);
-    console.log("Input fonksiyonuna gelen data", data);
+    console.log("Input data", data);
     this.sendDataToYourOutgoers(data, self, outgoers);
   };
   doSplit = (data, self, outgoers) => {
-    //console.log("split data:", data);
+  
     this.sendDataToYourOutgoers(data, self, outgoers);
   };
   doCombine = (data, self, outgoers) => {
-    console.log("Combine fonksiyonuna gelen data:", data);
+    console.log("Combine data:", data);
     const datas = this.solveDataFromMyEdges(self);
     console.log(
-      "Combine: Edgelerim içerisinden sadece datanın filtrelenmişi:",
+      "Combine:",
       datas
     );
     let combined = "";
     datas.map((data) => {
       return (combined += data.payload + " ");
     });
-    //combined = "This is for " + datas[0].payload;
-    //console.log("COMBINED:", combined);
+  
     notification("Datas combined", combined, "success");
     const connected = getConnectedEdges([self], this.edges);
-    //BURDA KALINDI
-    //console.log("combine connected:", connected);
+   
     this.sendDataToYourOutgoers([{ source1: combined }], self, outgoers);
   };
   doNotification = (data, self, outgoers) => {
-    console.log("Notification fonksiyonuna gelen data:", data);
+    console.log("Notification data:", data);
     const datas = this.solveDataFromMyEdges(self);
     console.log(
-      "Notification: Edgelerim içerisinden sadece datanın filtrelenmişi: ",
+      "Notification:",
       datas
     );
     datas.map((data) => {
@@ -79,26 +74,21 @@ export default class Node {
     console.log("SEND DATA TO YOUR OUTGOERS");
     console.log("-----------------------------");
     this.combineEdgesWithData(data, self);
-    //console.log("BİRLEŞTİRİLMİŞ DATA", this.elements);
     outgoers.map((node) => {
-      console.log(`"${node.type}" FONKSİYONU ÇAĞIRILIYOR...`);
+      console.log(`"${node.type}" Outgoers...`);
       const childOutgoers = getOutgoers(node, this.elements);
       return node.data.onChange(data, node, childOutgoers);
     });
-    console.log("-----------------------------");
   };
   solveDataFromMyEdges = (self) => {
     const targets = this.edges.filter((edge) => edge.target === self.id);
-    //console.log("edges that target is me", targets);
     return targets.map((target) => target.data);
   };
   combineEdgesWithData = (data, self) => {
-    console.log(self.type + "-->EDGELER İLE BİRLEŞTİRİLECEK DATA-->", data);
     let indis = 0;
     const newElements = this.elements.map((element, index) => {
       if (isEdge(element)) {
         if (element.source === self.id) {
-          console.log("BİRLEŞTİRİLMİŞ DATA:", element);
           return {
             ...element,
             data: {

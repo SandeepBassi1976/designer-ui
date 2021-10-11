@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from "react";
-import NodeClass from "../globals/works/NodeClass";
+import NodeClass from "../storage/works/NodeClass";
 const StoreContext = createContext();
 const nodeClass = new NodeClass("nodeClass was created by store");
 export const StoreProvider = ({ children }) => {

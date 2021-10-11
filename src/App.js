@@ -12,21 +12,20 @@ import ReactFlow, {
   removeElements,
   isEdge,
 } from "react-flow-renderer";
-import CustomEdge from "./CustomEdge";
+import CustomEdge from "./components/Edge";
 import uuid from "react-uuid";
 import StoreContext from "./context/Store";
 import Sidebar from "./components/Sidebar";
 import Drawer from "./components/Drawer";
-import "./nodes/dnd.css";
+import "./style/dnd.css";
 import "./main.css";
-import customNodes from "./CustomNodes";
-import { NotificationContainer } from "react-notifications";
-import { loadFunctionsToNode } from "./globals/helpers/loadFunctionsToNode";
+import customNodes from "./components/Nodes";
+import { loadFunctionsToNode } from "./storage/helpers/loadFunctionsToNode";
 import { createGlobalStyle } from "styled-components";
 import "./components/DesignerUI/RightSideBar/RightBar.css";
-import adjustScreen from "./globals/dom/adjustScreen";
-import { getDataFromDb } from "./globals/db";
-import initialElements from "./initial-elements";
+import adjustScreen from "./storage/dom/adjustScreen";
+import { getDataFromDb } from "./storage/db";
+import initialElements from "./components/initial-elements";
 
 
 export const AppRoot = createGlobalStyle`
@@ -64,13 +63,12 @@ const DnDFlow = () => {
   const onConnect = (params) => {
 
     if (params.source === params.target) {
-   alert('an error has occured')
+   alert('an error has occured');
     } else {
       setElements((els) =>
         addEdge(
           {
             ...params,
-            animated: true,
             sourceX: 10,
             sourceY: 10,
             style: { stroke: flagColor, strokeWidth: "2px" },
@@ -84,6 +82,37 @@ const DnDFlow = () => {
         )
       );
     }
+
+   /*  setTest((test) => [...test, params.target]);
+    test.map((t) => {
+      if (t === params.target) {
+        alert("node has already a source");
+      } else {
+        setElements((els) =>
+          addEdge(
+            {
+              ...params,
+              animated: true,
+              sourceX: 10,
+              sourceY: 10,
+              style: { stroke: flagColor, strokeWidth: "2px" },
+              data: {
+                source: params.source,
+                target: params.target,
+                payload: nodeName,
+              },
+            },
+            els
+          )
+        );
+      }
+
+      console.log(elements);
+    });
+
+    const values = Object.values(elements);
+
+    values.forEach((e, i, final) => console.log(e)); */
   };
 
   useEffect(() => {
@@ -213,8 +242,6 @@ const DnDFlow = () => {
               connectionLineStyle={{ stroke: "#585858", strokeWidth: 2 }}
             ></ReactFlow>
           </div>
-          <NotificationContainer />
-          <p></p>
         </ReactFlowProvider>
       </div>
       <div className="rightFlow">

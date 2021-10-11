@@ -2,9 +2,9 @@ import React, {useContext,Fragment, useCallback} from "react";
 import StoreContext from "../context/Store";
 import Collapsible from "react-collapsible";
 import localforage from "localforage";
-import * as types from "../NodeTypes";
+import * as types from "./NodeTypes";
 
-import {saveToDb } from "../globals/db";
+import {saveToDb } from "../storage/db";
 
 
 export default () => {

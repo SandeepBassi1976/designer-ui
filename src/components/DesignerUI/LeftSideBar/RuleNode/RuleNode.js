@@ -7,7 +7,7 @@ const RuleNode = (self) => {
       <InputLabel>{self.data.label}</InputLabel>
       <Handle
         type="target"
-        position="top"
+        position="bottom"
         id="b"
         style={{ left: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}
@@ -15,7 +15,7 @@ const RuleNode = (self) => {
       
       <Handle
         type="source"
-        position="bottom"
+        position="top"
         id="b"
         style={{ left: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}

@@ -1,5 +1,5 @@
 import React from "react";
-import { getBezierPath, getMarkerEnd } from "react-flow-renderer";
+import { getBezierPath, getMarkerEnd, getSmoothStepPath } from "react-flow-renderer";
 export default function CustomEdge({
   id,
   sourceX,

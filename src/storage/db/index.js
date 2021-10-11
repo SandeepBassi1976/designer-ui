@@ -32,6 +32,7 @@ export const getDataFromDb = async (nodeClass) => {
 export const saveToDb = async (reactFlowInstance) => {
   if (reactFlowInstance) {
     const flow = reactFlowInstance.toObject();
+    console.log(flow);
     return await localforage
       .setItem("rules", JSON.stringify(flow))
       .then((res) => {

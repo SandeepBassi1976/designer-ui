@@ -7,14 +7,14 @@ const SetNode = (self) => {
       <InputLabel>{self.data.label}</InputLabel>
       <Handle
         type="target"
-        position="top"
+        position="bottom"
         id="b"
         style={{ left: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
       <Handle
         type="source"
-        position="bottom"
+        position="top"
         id="b"
         style={{ left: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}
