@@ -27,7 +27,6 @@ import adjustScreen from "./storage/dom/adjustScreen";
 import { getDataFromDb } from "./storage/db";
 import initialElements from "./components/initial-elements";
 
-
 export const AppRoot = createGlobalStyle`
   body {
     @import url('../../font.css');
@@ -53,17 +52,13 @@ const DnDFlow = () => {
     flagColor,
   } = useContext(StoreContext);
 
-  const [data, setData] = useState([]);
-  const [showJson, setShowJson] = useState(false);
   const [nodeName, setNodeName] = useState([]);
   const reactFlowWrapper = useRef(null);
 
 
-
   const onConnect = (params) => {
-
     if (params.source === params.target) {
-   alert('an error has occured');
+      alert("an error has occured");
     } else {
       setElements((els) =>
         addEdge(
@@ -71,48 +66,21 @@ const DnDFlow = () => {
             ...params,
             sourceX: 10,
             sourceY: 10,
-            style: { stroke: flagColor, strokeWidth: "2px" },
-            data: { 
+            style: { stroke: flagColor, strokeWidth: "1px" },
+            data: {
               source: params.source,
               target: params.target,
-              payload: nodeName, 
-              }
+              payload: nodeName,
+              label: nodeName,
+             /* label is coming from component state, that's why h2 is not updating in OnConnect method of stored data
+             1. need to pass the label or payload in <param> parameter
+             */
+            },
           },
           els
         )
       );
     }
-
-   /*  setTest((test) => [...test, params.target]);
-    test.map((t) => {
-      if (t === params.target) {
-        alert("node has already a source");
-      } else {
-        setElements((els) =>
-          addEdge(
-            {
-              ...params,
-              animated: true,
-              sourceX: 10,
-              sourceY: 10,
-              style: { stroke: flagColor, strokeWidth: "2px" },
-              data: {
-                source: params.source,
-                target: params.target,
-                payload: nodeName,
-              },
-            },
-            els
-          )
-        );
-      }
-
-      console.log(elements);
-    });
-
-    const values = Object.values(elements);
-
-    values.forEach((e, i, final) => console.log(e)); */
   };
 
   useEffect(() => {
@@ -132,7 +100,6 @@ const DnDFlow = () => {
     setElements(newElements);
   }, [flagColor]);
 
-
   const onEdgeUpdate = (oldEdge, newConnection) => {
     setElements((els) => updateEdge(oldEdge, newConnection, els));
   };
@@ -146,7 +113,8 @@ const DnDFlow = () => {
     setReactFlowInstance(_reactFlowInstance);
 
     const data = getDataFromDb(nodeClass);
-    data.then((flow) => {
+    data
+      .then((flow) => {
         adjustScreen(flow, _reactFlowInstance);
         setElements(flow.elements);
       })
@@ -165,9 +133,9 @@ const DnDFlow = () => {
     event.preventDefault();
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
     const type = event.dataTransfer.getData("application/reactflow");
-    setData((data) => [...data, type]);
     setNodeName(type);
-    setShowJson(true);
+ 
+
     const position = reactFlowInstance.project({
       x: event.clientX - reactFlowBounds.left,
       y: event.clientY - reactFlowBounds.top,
@@ -202,6 +170,24 @@ const DnDFlow = () => {
   const edgeTypes = {
     custom: CustomEdge,
   };
+
+  useEffect(() => {
+    nodeNames();
+
+  }, [elements])
+
+  const nodeNames = () => {
+    let node;
+    {
+      elements.map((els, i, { length }) => {
+        if (i + 1 === length) {
+          node = els.data.label;
+        }
+      });
+    }
+    return node;
+  };
+
 
   return (
     <Fragment>
@@ -246,9 +232,12 @@ const DnDFlow = () => {
       </div>
       <div className="rightFlow">
         <aside>
-          <b>{nodeName}</b>
+          <b>{nodeNames()}</b>
 
-          <p>{showJson && JSON.stringify(data)}</p>
+          {elements.map((ele) => (
+            ele.data.label !== ele.data.payload && (<p>{ele.data.label}</p>)
+
+          ))}
         </aside>
       </div>
     </Fragment>
