@@ -7,16 +7,16 @@ const ScriptNode = (self) => {
       <InputLabel>{self.data.label}</InputLabel>
       <Handle
         type="target"
-        position="bottom"
+        position="left"
         id="b"
-        style={{ left: "50%" }}
+        style={{ top: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
       <Handle
         type="source"
-        position="top"
+        position="right"
         id="b"
-        style={{ left: "50%" }}
+        style={{ top: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
     </NodeWrapper>

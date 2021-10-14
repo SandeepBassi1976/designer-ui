@@ -73,7 +73,7 @@ const DnDFlow = () => {
               payload: nodeName,
               label: nodeName,
              /* label is coming from component state, that's why h2 is not updating in OnConnect method of stored data
-             1. need to pass the label or payload in <param> parameter
+             1. need to pass the label or payload in <params> parameter
              */
             },
           },
@@ -171,10 +171,10 @@ const DnDFlow = () => {
     custom: CustomEdge,
   };
 
-  useEffect(() => {
+/*   useEffect(() => {
     nodeNames();
 
-  }, [elements])
+  }, [elements]) */
 
   const nodeNames = () => {
     let node;

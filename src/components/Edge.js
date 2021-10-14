@@ -1,5 +1,5 @@
 import React from "react";
-import { getBezierPath, getMarkerEnd, getSmoothStepPath } from "react-flow-renderer";
+import { getBezierPath, getMarkerEnd } from "react-flow-renderer";
 export default function CustomEdge({
   id,
   sourceX,
@@ -29,6 +29,7 @@ export default function CustomEdge({
         style={style}
         className="react-flow__edge-path"
         d={edgePath}
+        type = 'straight'
         markerEnd={markerEnd}
       />
       <text>
