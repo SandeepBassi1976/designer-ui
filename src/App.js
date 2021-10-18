@@ -52,7 +52,7 @@ const DnDFlow = () => {
     flagColor,
   } = useContext(StoreContext);
 
-  const [nodeName, setNodeName] = useState([]);
+  const [nodeName, setNodeName] = useState("default");
   const reactFlowWrapper = useRef(null);
 
 
@@ -72,14 +72,15 @@ const DnDFlow = () => {
               target: params.target,
               payload: nodeName,
               label: nodeName,
-             /* label is coming from component state, that's why h2 is not updating in OnConnect method of stored data
+              /* label is coming from component state, that's why h2 is not updating in OnConnect method of stored data
              1. need to pass the label or payload in <params> parameter
              */
             },
           },
           els
-        )
+        ) 
       );
+      
     }
   };
 
@@ -102,10 +103,11 @@ const DnDFlow = () => {
 
   const onEdgeUpdate = (oldEdge, newConnection) => {
     setElements((els) => updateEdge(oldEdge, newConnection, els));
+    console.log(elements);
   };
 
   const onElementsRemove = (elementsToRemove) => {
-    console.log(elementsToRemove);
+    //console.log(elementsToRemove);
     setElements((els) => removeElements(elementsToRemove, els));
   };
 
@@ -117,6 +119,7 @@ const DnDFlow = () => {
       .then((flow) => {
         adjustScreen(flow, _reactFlowInstance);
         setElements(flow.elements);
+       
       })
       .catch((err) => {
         console.log(err);
@@ -171,10 +174,10 @@ const DnDFlow = () => {
     custom: CustomEdge,
   };
 
-/*   useEffect(() => {
-    nodeNames();
-
-  }, [elements]) */
+/* 
+  useEffect(() => {
+  },[elements])
+ */
 
   const nodeNames = () => {
     let node;
