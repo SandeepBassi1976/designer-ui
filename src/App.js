@@ -174,10 +174,6 @@ const DnDFlow = () => {
     custom: CustomEdge,
   };
 
-/* 
-  useEffect(() => {
-  },[elements])
- */
 
   const nodeNames = () => {
     let node;
