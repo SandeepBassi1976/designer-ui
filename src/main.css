@@ -44,3 +44,7 @@ body {
   background: red;
   color: Red;
 }
+
+.react-flow__handle {
+  background: #0041d0 !important;
+}

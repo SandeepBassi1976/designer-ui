@@ -55,7 +55,6 @@ const DnDFlow = () => {
   const [nodeName, setNodeName] = useState("default");
   const reactFlowWrapper = useRef(null);
 
-
   const onConnect = (params) => {
     if (params.source === params.target) {
       alert("an error has occured");
@@ -78,11 +77,11 @@ const DnDFlow = () => {
             },
           },
           els
-        ) 
+        )
       );
-      
     }
   };
+
 
   useEffect(() => {
     const newElements = elements.map((els) => {
@@ -119,7 +118,6 @@ const DnDFlow = () => {
       .then((flow) => {
         adjustScreen(flow, _reactFlowInstance);
         setElements(flow.elements);
-       
       })
       .catch((err) => {
         console.log(err);
@@ -137,7 +135,6 @@ const DnDFlow = () => {
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
     const type = event.dataTransfer.getData("application/reactflow");
     setNodeName(type);
- 
 
     const position = reactFlowInstance.project({
       x: event.clientX - reactFlowBounds.left,
@@ -174,7 +171,6 @@ const DnDFlow = () => {
     custom: CustomEdge,
   };
 
-
   const nodeNames = () => {
     let node;
     {
@@ -186,7 +182,6 @@ const DnDFlow = () => {
     }
     return node;
   };
-
 
   return (
     <Fragment>
@@ -233,10 +228,10 @@ const DnDFlow = () => {
         <aside>
           <b>{nodeNames()}</b>
 
-          {elements.map((ele) => (
-            ele.data.label !== ele.data.payload && (<p>{ele.data.label}</p>)
-
-          ))}
+          {elements.map(
+            (ele) =>
+              ele.data.label !== ele.data.payload && <p>{ele.data.label}</p>
+          )}
         </aside>
       </div>
     </Fragment>
