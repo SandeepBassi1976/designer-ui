@@ -26,6 +26,8 @@ import "./components/DesignerUI/RightSideBar/RightBar.css";
 import adjustScreen from "./storage/dom/adjustScreen";
 import { getDataFromDb } from "./storage/db";
 import initialElements from "./components/initial-elements";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 export const AppRoot = createGlobalStyle`
   body {
@@ -52,34 +54,92 @@ const DnDFlow = () => {
     flagColor,
   } = useContext(StoreContext);
 
-  const [nodeName, setNodeName] = useState("default");
+
   const reactFlowWrapper = useRef(null);
+  const [nodeName, setNodeName] = useState("default");
+  //const [test, setTest] = useState([''])
+
+
+
+  const ConditionNode = (props) => (
+    <Card>
+      <CardContent>
+      <div style={{ textAlign: "center", padding: 8 }}>
+        <div
+          style={{
+            color: "#888",
+            backgroundColor: "#eee",
+            borderRadius: 3,
+            padding: 4,
+          }}
+        >
+          {props.rule}
+      
+        </div>
+        <div
+          style={{
+            color: "#aaa",
+            padding: 4,
+            textTransform: "uppercase",
+            fontSize: 10,
+            fontWeight: "bold",
+          }}
+        >
+          and
+        </div>
+        <div>
+          <div
+            style={{
+              color: "#888",
+              backgroundColor: "#eee",
+              borderRadius: 3,
+              padding: 4,
+            }}
+          >
+            {"cart total ≥ 200.00"}
+          </div>
+        </div>
+      </div>
+      </CardContent>
+    </Card>
+  );
 
   const onConnect = (params) => {
+    /* let target = params.target;
+    setTest((test) => [...test, target]);
+
+    test.map((t) => {
+     (params.source === params.target || t === params.target)
+     alert("node has already a source");
+    }); */
+
+
     if (params.source === params.target) {
-      alert("an error has occured");
+      alert("An error has occured");
     } else {
       setElements((els) =>
-        addEdge(
-          {
-            ...params,
-            sourceX: 10,
-            sourceY: 10,
-            style: { stroke: flagColor, strokeWidth: "1px" },
-            data: {
-              source: params.source,
-              target: params.target,
-              payload: nodeName,
-              label: nodeName,
-              /* label is coming from component state, that's why h2 is not updating in OnConnect method of stored data
-             1. need to pass the label or payload in <params> parameter
-             */
-            },
+      addEdge(
+        {
+          ...params,
+          sourceX: 10,
+          sourceY: 10,
+          style: { stroke: flagColor, strokeWidth: "1px" },
+          data: {
+            source: params.source,
+            target: params.target,
+            payload: nodeName,
+            label: nodeName,
+            /* label is coming from component state, that's why h2 is not updating in OnConnect method of stored data
+           1. need to pass the label or payload in <params> parameter
+           */
           },
-          els
-        )
+        },
+        els
+      )
       );
     }
+
+    console.log(elements);
   };
 
 
@@ -106,7 +166,7 @@ const DnDFlow = () => {
   };
 
   const onElementsRemove = (elementsToRemove) => {
-    //console.log(elementsToRemove);
+    console.log(elementsToRemove);
     setElements((els) => removeElements(elementsToRemove, els));
   };
 
@@ -153,6 +213,7 @@ const DnDFlow = () => {
         sample: "Sample",
         targetCount: 1,
         sourceCount: 1,
+        component: () => <ConditionNode rule = {type}/>
       },
     };
 
