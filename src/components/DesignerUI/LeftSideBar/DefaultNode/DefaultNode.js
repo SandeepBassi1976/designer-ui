@@ -1,29 +1,29 @@
-import { NodeWrapper, InputLabel } from "../styles";
-import { Handle } from "react-flow-renderer";
+import { CustomWrapper, InputLabel } from "../styles";
+import { Handle} from "react-flow-renderer";
 
-const IfNode = (self) => {
+const DefaultNode = (self) => {
   return (
-    <NodeWrapper>
+    <CustomWrapper>
       <InputLabel>{self.data.label}</InputLabel>
       <Handle
-        className="react-flow__handleMain"
+       className="react-flow__handleCustom"
         type="target"
         position="left"
         id="b"
         style={{ top: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
-
+      
       <Handle
-        className="react-flow__handleMain"
+       className="react-flow__handleCustom"
         type="source"
         position="right"
         id="b"
         style={{ top: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
-    </NodeWrapper>
+    </CustomWrapper>
   );
 };
 
-export default IfNode;
+export default DefaultNode;

@@ -213,7 +213,7 @@ const DnDFlow = () => {
         sample: "Sample",
         targetCount: 1,
         sourceCount: 1,
-        component: () => <ConditionNode rule = {type}/>
+        component: () => <ConditionNode />
       },
     };
 
@@ -254,7 +254,7 @@ const DnDFlow = () => {
             <ReactFlow
               edgeTypes={edgeTypes}
               style={{
-                background: theme === "light" ? "#dde1e4" : "rgb(35,35,35)",
+                background: theme === "light" ? "#343c45" : "rgb(35,35,35)",
               }}
               elements={elements}
               onConnect={onConnect}

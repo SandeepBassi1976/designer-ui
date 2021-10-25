@@ -4,6 +4,7 @@ import RuleNode from "./DesignerUI/LeftSideBar/RuleNode/RuleNode";
 import CallNode from "./DesignerUI/LeftSideBar/CallNode/CallNode";
 import SetNode from "./DesignerUI/LeftSideBar/SetNode/SetNode";
 import IfNode from "./DesignerUI/LeftSideBar/IfNode/IfNode";
+import DefaultNode from "./DesignerUI/LeftSideBar/DefaultNode/DefaultNode";
 
 
 const customNodes = {
@@ -13,6 +14,7 @@ const customNodes = {
   CALL:CallNode,
   SET:SetNode,
   IF:IfNode,
+  DEFAULT:DefaultNode,
 };
 
 export default customNodes;

@@ -11,15 +11,16 @@
     min-height: 28em;
     padding: 26px 12px;
     font-size: 13px;
-    background: #0000cd99;
+    background: #f6f0f01a;
     resize: both;
     overflow: auto;
     position: absolute;
     top: 8%;
     z-index: 5;
     border-radius: 7px;
-    color:#fff;
+    color:#D2CCC1;
     box-sizing: border-box;
+    border: 2px solid darkgrey;
   }
 
   .rightFlow b {

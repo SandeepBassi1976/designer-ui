@@ -1,11 +1,12 @@
-import { NodeWrapper, InputLabel } from "../styles";
+import { CustomWrapper, InputLabel } from "../styles";
 import { Handle} from "react-flow-renderer";
 
 const RuleNode = (self) => {
   return (
-    <NodeWrapper>
+    <CustomWrapper>
       <InputLabel>{self.data.label}</InputLabel>
       <Handle
+       className="react-flow__handleCustom"
         type="target"
         position="left"
         id="b"
@@ -14,13 +15,14 @@ const RuleNode = (self) => {
       />
       
       <Handle
+       className="react-flow__handleCustom"
         type="source"
         position="right"
         id="b"
         style={{ top: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
-    </NodeWrapper>
+    </CustomWrapper>
   );
 };
 

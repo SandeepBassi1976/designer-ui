@@ -53,6 +53,20 @@ export default () => {
         open={true}
         transitionTime={100}
       >
+         <div
+          className="dndnode custom"
+          onDragStart={(event) => onDragStart(event, types.DEFAULT)}
+          draggable
+        >
+          {types.DEFAULT}
+        </div>
+        <div
+          className="dndnode custom"
+          onDragStart={(event) => onDragStart(event, types.RULE)}
+          draggable
+        >
+          {types.RULE}
+        </div>
         <div
           className="dndnode network"
           onDragStart={(event) => onDragStart(event, types.SCRIPT)}
@@ -67,13 +81,8 @@ export default () => {
         >
           {types.RULESET}
         </div>
-        <div
-          className="dndnode network"
-          onDragStart={(event) => onDragStart(event, types.RULE)}
-          draggable
-        >
-          {types.RULE}
-        </div>
+       
+        
         <div
           className="dndnode network"
           onDragStart={(event) => onDragStart(event, types.CALL)}
@@ -97,6 +106,7 @@ export default () => {
         >
           {types.IF}
         </div>
+      
         </Collapsible>
     </aside>
 </Fragment>

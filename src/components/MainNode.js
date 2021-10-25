@@ -9,8 +9,8 @@ text-align: center;
 background: #fff !important;
 border-radius: 3px;
 border-style:solid;
-border-width:1px;
-border-color: #0041d0;
+border-width:2px;
+border-color: 	#708090;
 `;
 
 export default MainNode;

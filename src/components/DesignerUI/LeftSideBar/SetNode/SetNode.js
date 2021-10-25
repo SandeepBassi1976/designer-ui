@@ -6,6 +6,7 @@ const SetNode = (self) => {
     <NodeWrapper>
       <InputLabel>{self.data.label}</InputLabel>
       <Handle
+        className="react-flow__handleMain"
         type="target"
         position="left"
         id="b"
@@ -13,6 +14,7 @@ const SetNode = (self) => {
         onConnect={(params) => console.log("handle onConnect", params)}
       />
       <Handle
+        className="react-flow__handleMain"
         type="source"
         position="right"
         id="b"

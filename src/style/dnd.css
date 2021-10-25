@@ -7,7 +7,7 @@
 .dndflow aside {
   padding: 26px 12px;
   font-size: 13px;
-  background: #f6f0f0;
+  background: #f6f0f01a;
   resize: both;
   overflow: auto;
   position: absolute;
@@ -20,6 +20,8 @@
 
 .dndflow .dndnode {
   height: 35px;
+  width:150px;
+  margin-left: 20px;
   padding: 5px;
   border-radius: 4px;
   margin-bottom: 5px;
@@ -28,9 +30,12 @@
   color: white;
   transition: all 0.1s ease;
 }
-.dndflow .dndnode:hover {
+
+
+/* .dndflow .dndnode:hover {
   transform: scale(1.1);
-}
+  border: 2px solid #549bd0;
+} */
 
 .dndflow .dndnode.common {
   background: rgb(85, 85, 85);
@@ -41,7 +46,15 @@
 }
 
 .dndflow .dndnode.network {
-  background: 	#0000cd99;
+  background:#fff;
+  color: #adadad;
+  border: 2px solid #919dae;
+}
+
+.dndflow .dndnode.custom {
+  background:#fff;
+  color: #adadad;
+  border: 2px solid 	#549bd0;
 }
 
 
@@ -59,6 +72,7 @@
     width: 14%;
     max-width: 500px;
     min-width: 154px;
+    border: 2px solid darkgrey;
   }
 }
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
