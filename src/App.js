@@ -57,9 +57,6 @@ const DnDFlow = () => {
 
   const reactFlowWrapper = useRef(null);
   const [nodeName, setNodeName] = useState("default");
-  //const [test, setTest] = useState([''])
-
-
 
   const ConditionNode = (props) => (
     <Card>

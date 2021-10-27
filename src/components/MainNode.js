@@ -10,7 +10,9 @@ background: #fff !important;
 border-radius: 3px;
 border-style:solid;
 border-width:2px;
-border-color: 	#708090;
+border-color: #ff0072;
+box-shadow: 0 0 0 0.5px #ff0072;
+opacity: 1;
 `;
 
 export default MainNode;
