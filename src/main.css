@@ -45,9 +45,9 @@ body {
   color: Red;
 }
 
-.react-flow__handle {
+/* .react-flow__handle {
   background: #0041d0 !important;
-}
+} */
 
 
 .react-flow__handleCustom{
@@ -56,5 +56,5 @@ body {
 
 
 .react-flow__handleMain{
-  background: 	#708090 !important;
+  background: 	#F87531 !important;
 }

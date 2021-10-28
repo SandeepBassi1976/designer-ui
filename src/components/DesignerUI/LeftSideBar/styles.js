@@ -8,7 +8,7 @@ export const NodeWrapper = styled(MainNode)`
 `;
 
 export const InputLabel = styled.div`
-  color: #aaa;
+  color: #fff;
 `;
 
 export const CustomWrapper = styled(CustomNode)`
@@ -16,5 +16,5 @@ export const CustomWrapper = styled(CustomNode)`
 `;
 
 export const StackWrapper = styled(StackNode)`
-  background: #0000cd99;
+  background: #F87531;
 `;

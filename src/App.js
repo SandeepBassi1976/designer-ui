@@ -139,6 +139,8 @@ const DnDFlow = () => {
     console.log(elements);
   };
 
+  
+
 
   useEffect(() => {
     const newElements = elements.map((els) => {
@@ -251,7 +253,7 @@ const DnDFlow = () => {
             <ReactFlow
               edgeTypes={edgeTypes}
               style={{
-                background: theme === "light" ? "#343c45" : "rgb(35,35,35)",
+                background: theme === "light" ? "#ffffff" : "rgb(35,35,35)",
               }}
               elements={elements}
               onConnect={onConnect}

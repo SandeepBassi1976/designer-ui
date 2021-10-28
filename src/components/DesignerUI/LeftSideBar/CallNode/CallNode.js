@@ -15,7 +15,6 @@ const CallNode = (self) => {
         position={Position.Top}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
-      <Component />
       <Handle
         className="react-flow__handleMain"
         id="b"

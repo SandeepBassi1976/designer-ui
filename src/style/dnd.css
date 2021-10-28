@@ -46,14 +46,14 @@
 }
 
 .dndflow .dndnode.network {
-  background:#fff;
-  color: #adadad;
-  border: 2px solid #919dae;
+  background:#F87531;
+  color: #fff;
+  border: 2px solid #F87531;
 }
 
 .dndflow .dndnode.custom {
-  background:#fff;
-  color: #adadad;
+  background:#549bd0;
+  color: #fff;
   border: 2px solid 	#549bd0;
 }
 

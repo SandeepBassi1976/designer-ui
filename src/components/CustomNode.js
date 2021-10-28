@@ -4,9 +4,9 @@ const CustomNode = styled.div`
 padding: 10px;
 width: 150px;
 font: 12px sans-serif !important;
-color: #222;
+color: #fff !important;
 text-align: center;
-background: #fff !important;
+background: #549bd0 !important;
 border-radius: 3px;
 border-style:solid;
 border-width:2px;
