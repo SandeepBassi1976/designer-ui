@@ -1,13 +1,13 @@
 import { InputLabel, StackWrapper } from "../styles";
 import { Handle, Position } from "react-flow-renderer";
+import { Fragment } from "react";
 //import Card from "@material-ui/core/Card";
 //import CardContent from "@material-ui/core/CardContent";
 
 const CallNode = (self) => {
-  const Component = self.data.component;
+  //const Component = self.data.component;
   return (
-    <StackWrapper>
-      <InputLabel>{self.data.label}</InputLabel>
+    <Fragment>
       <Handle
         className="react-flow__handleMain"
         id="a"
@@ -15,6 +15,7 @@ const CallNode = (self) => {
         position={Position.Top}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
+      <StackWrapper />
       <Handle
         className="react-flow__handleMain"
         id="b"
@@ -22,7 +23,6 @@ const CallNode = (self) => {
         position="left"
         onConnect={(params) => console.log("handle onConnect", params)}
       />
-
       <Handle
         className="react-flow__handleMain"
         id="c"
@@ -30,7 +30,7 @@ const CallNode = (self) => {
         position="right"
         onConnect={(params) => console.log("handle onConnect", params)}
       />
-    </StackWrapper>
+    </Fragment>
   );
 };
 

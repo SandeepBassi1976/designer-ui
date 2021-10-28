@@ -6,7 +6,7 @@ const StackNode = styled.div`
   min-height:10em;
   font: 12px sans-serif !important;
   text-align: center;
-  background: #F87531 !important;
+  background: #fff !important;
   border-radius: 3px;
   border-style:solid;
   border-width:2px;

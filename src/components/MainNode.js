@@ -4,7 +4,7 @@ const MainNode = styled.div`
 padding: 10px;
 width: 150px;
 font: 12px sans-serif !important;
-color: #222;
+color: #fff;
 text-align: center;
 background:#F87531 !important;
 border-radius: 3px;

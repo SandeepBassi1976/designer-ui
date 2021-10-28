@@ -9,7 +9,7 @@ const RuleSetNode = (self) => {
         className="react-flow__handleMain"
         type="target"
         position="left"
-        id="b"
+        id="a"
         style={{ top: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}
       />

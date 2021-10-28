@@ -11,6 +11,7 @@ import ReactFlow, {
   updateEdge,
   removeElements,
   isEdge,
+  
 } from "react-flow-renderer";
 import CustomEdge from "./components/Edge";
 import uuid from "react-uuid";
@@ -165,7 +166,7 @@ const DnDFlow = () => {
   };
 
   const onElementsRemove = (elementsToRemove) => {
-    console.log(elementsToRemove);
+    //console.log(elementsToRemove);
     setElements((els) => removeElements(elementsToRemove, els));
   };
 
@@ -217,6 +218,7 @@ const DnDFlow = () => {
     };
 
     setElements([...elements, newNode]);
+    console.log(position.x);
   };
   const onElementClick = (event, element) => {
     setClickedElement(element);

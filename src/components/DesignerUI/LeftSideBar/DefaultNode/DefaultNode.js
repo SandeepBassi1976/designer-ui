@@ -9,7 +9,7 @@ const DefaultNode = (self) => {
        className="react-flow__handleCustom"
         type="target"
         position="left"
-        id="b"
+        id="a"
         style={{ top: "50%" }}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
