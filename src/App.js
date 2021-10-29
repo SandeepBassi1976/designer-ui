@@ -1,18 +1,5 @@
-import React, {
-  useRef,
-  useEffect,
-  useContext,
-  useState,
-  Fragment,
-} from "react";
-import ReactFlow, {
-  ReactFlowProvider,
-  addEdge,
-  updateEdge,
-  removeElements,
-  isEdge,
-  
-} from "react-flow-renderer";
+import React, {useRef,useEffect,useContext,useState,Fragment,} from "react";
+import ReactFlow, {ReactFlowProvider,addEdge,updateEdge,isEdge,removeElements,} from "react-flow-renderer";
 import CustomEdge from "./components/Edge";
 import uuid from "react-uuid";
 import StoreContext from "./context/Store";
@@ -140,6 +127,8 @@ const DnDFlow = () => {
     console.log(elements);
   };
 
+
+
   
 
 
@@ -186,12 +175,15 @@ const DnDFlow = () => {
   };
 
   const onDragOver = (event) => {
-    event.preventDefault();
+    event.preventDefault();  //  Default behavior is not to allow a drop
     event.dataTransfer.dropEffect = "move";
+    //console.log(event)
   };
 
+
+
   const onDrop = (event) => {
-    event.preventDefault();
+    event.preventDefault();  
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
     const type = event.dataTransfer.getData("application/reactflow");
     setNodeName(type);
@@ -219,7 +211,9 @@ const DnDFlow = () => {
 
     setElements([...elements, newNode]);
     console.log(position.x);
+    console.log(position.y);
   };
+
   const onElementClick = (event, element) => {
     setClickedElement(element);
   };
@@ -244,6 +238,18 @@ const DnDFlow = () => {
     }
     return node;
   };
+
+  const onNodeDragStop = (event, node) => {
+    
+    const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
+    const position = reactFlowInstance.project({
+      x: event.clientX - reactFlowBounds.left,
+      y: event.clientY - reactFlowBounds.top,
+    });
+    console.log(position.x)
+    console.log(position.y)
+
+  }
 
   return (
     <Fragment>
@@ -278,6 +284,7 @@ const DnDFlow = () => {
               nodeTypes={customNodes}
               minZoom={0.1}
               maxZoom={4}
+              onNodeDragStop={onNodeDragStop}
               multiSelectionKeyCode={17}
               zoomActivationKeyCode={90}
               zoomOnDoubleClick={false}

@@ -13,6 +13,7 @@ export default () => {
     event.dataTransfer.setData("application/reactflow", nodeType);
     event.dataTransfer.effectAllowed = "move";
   };
+  
   localforage.config({
     name: "DesignerUI Demo",
     storeName: "Node-Flow"
