@@ -58,3 +58,9 @@ body {
 .react-flow__handleMain{
   background: 	#F87531 !important;
 }
+
+
+
+.react-flow__node {
+  z-index:50 !important;
+}

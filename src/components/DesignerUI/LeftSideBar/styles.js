@@ -17,4 +17,5 @@ export const CustomWrapper = styled(CustomNode)`
 
 export const StackWrapper = styled(StackNode)`
   background: #F87531;
+  color: black;
 `;

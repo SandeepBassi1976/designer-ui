@@ -193,6 +193,7 @@ const DnDFlow = () => {
       y: event.clientY - reactFlowBounds.top,
     });
 
+ 
     const nodeFunction = loadFunctionsToNode(type, nodeClass);
 
     const newNode = {
@@ -210,8 +211,8 @@ const DnDFlow = () => {
     };
 
     setElements([...elements, newNode]);
-    console.log(position.x);
-    console.log(position.y);
+   
+
   };
 
   const onElementClick = (event, element) => {
@@ -239,17 +240,29 @@ const DnDFlow = () => {
     return node;
   };
 
-  const onNodeDragStop = (event, node) => {
+ /*  const onNodeDragStop = (event, node) => {
     
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
     const position = reactFlowInstance.project({
       x: event.clientX - reactFlowBounds.left,
       y: event.clientY - reactFlowBounds.top,
     });
-    console.log(position.x)
-    console.log(position.y)
 
-  }
+  } */
+
+  const onDropCapture = event => {
+   
+    let targetName = event.target.innerHTML;
+    console.log(targetName);
+
+    console.log(event.dataTransfer.effectAllowed);
+
+ /*  if(targetName === 'CALL'){
+    alert(event.dataTransfer.effectAllowed = 'none');
+  } */
+   
+  } 
+  
 
   return (
     <Fragment>
@@ -281,10 +294,10 @@ const DnDFlow = () => {
               onEdgeUpdate={onEdgeUpdate}
               onNodeContextMenu={onNodeContextMenu}
               deleteKeyCode={46}
+              onDropCapture={onDropCapture}
               nodeTypes={customNodes}
               minZoom={0.1}
               maxZoom={4}
-              onNodeDragStop={onNodeDragStop}
               multiSelectionKeyCode={17}
               zoomActivationKeyCode={90}
               zoomOnDoubleClick={false}
